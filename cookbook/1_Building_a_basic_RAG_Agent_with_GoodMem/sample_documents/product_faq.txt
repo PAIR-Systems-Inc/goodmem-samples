@@ -1,0 +1,72 @@
+ACME Software Suite - Frequently Asked Questions
+
+GENERAL QUESTIONS
+
+Q: What is the ACME Software Suite?
+A: The ACME Software Suite is an integrated platform that provides business management tools including CRM, project management, analytics, and automation capabilities. It's designed to streamline operations for small to medium-sized businesses.
+
+Q: How much does ACME cost?
+A: We offer three pricing tiers:
+- Starter: $29/month for up to 5 users
+- Professional: $79/month for up to 25 users
+- Enterprise: $199/month for unlimited users
+All plans include core features with increasing storage and advanced functionality.
+
+Q: Is there a free trial available?
+A: Yes, we offer a 14-day free trial with full access to all Professional tier features. No credit card required to start your trial.
+
+TECHNICAL QUESTIONS
+
+Q: What browsers are supported?
+A: ACME works with all modern browsers including Chrome, Firefox, Safari, and Edge. We recommend keeping your browser updated for the best experience.
+
+Q: Can I integrate ACME with other tools?
+A: Absolutely! ACME integrates with over 200 popular business tools including Slack, Google Workspace, Microsoft 365, QuickBooks, and Salesforce. Check our integrations page for the complete list.
+
+Q: Is my data secure?
+A: Yes, security is our top priority. We use enterprise-grade encryption, conduct regular security audits, and maintain SOC 2 Type II compliance. All data is stored in secure, redundant data centers.
+
+Q: Do you offer mobile apps?
+A: Yes, ACME mobile apps are available for iOS and Android devices. The mobile apps provide access to core features optimized for mobile use.
+
+ACCOUNT AND BILLING
+
+Q: How do I upgrade or downgrade my plan?
+A: You can change your plan anytime from your account settings. Upgrades take effect immediately, while downgrades occur at your next billing cycle.
+
+Q: What payment methods do you accept?
+A: We accept all major credit cards (Visa, MasterCard, American Express, Discover) and PayPal. Enterprise customers can pay by wire transfer or check.
+
+Q: Do you offer discounts for nonprofits or educational institutions?
+A: Yes, we provide 30% discounts for qualified nonprofits and educational institutions. Contact our sales team with your organization details to apply.
+
+Q: What happens if I cancel my subscription?
+A: You can cancel anytime. Your account remains active until the end of your current billing period. After cancellation, you have 30 days to export your data before it's permanently deleted.
+
+SUPPORT AND TRAINING
+
+Q: What support options are available?
+A: We provide multiple support channels:
+- 24/7 chat support for all paid plans
+- Email support with response within 24 hours
+- Phone support for Professional and Enterprise plans
+- Comprehensive knowledge base and video tutorials
+
+Q: Do you offer training for new users?
+A: Yes, we provide free onboarding sessions for new customers, recorded webinar training, and detailed documentation. Enterprise customers receive dedicated training sessions.
+
+Q: How do I report a bug or request a feature?
+A: You can submit bug reports or feature requests through our support portal at support.acme.com. We review all submissions and provide updates on development progress.
+
+Q: Is there a user community or forum?
+A: Yes, join our user community at community.acme.com to connect with other users, share best practices, and get tips from ACME experts.
+
+GETTING STARTED
+
+Q: How long does implementation take?
+A: Most customers are up and running within a few hours. Our setup wizard guides you through the initial configuration, and our support team is available to help with data migration and advanced setup.
+
+Q: Can I import data from my current system?
+A: Yes, ACME supports data import from most popular business software including Excel, CSV files, and direct migrations from competitors' platforms. Our team can assist with complex migrations.
+
+For additional questions not covered here, please contact our support team at support@acme.com or visit our knowledge base at help.acme.com.

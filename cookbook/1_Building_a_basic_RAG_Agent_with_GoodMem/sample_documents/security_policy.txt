@@ -1,0 +1,104 @@
+ACME Corporation Information Security Policy
+
+POLICY OVERVIEW
+This Information Security Policy establishes the framework for protecting ACME Corporation's information assets, including data, systems, and network infrastructure. All employees, contractors, and third parties with access to company systems must comply with these security requirements.
+
+DATA CLASSIFICATION
+All information at ACME is classified into four categories:
+
+1. PUBLIC: Information approved for public release
+2. INTERNAL: Information for internal use only
+3. CONFIDENTIAL: Sensitive information requiring special handling
+4. RESTRICTED: Highly sensitive information with limited access
+
+Each classification level has specific handling, storage, and transmission requirements outlined in our data handling procedures.
+
+PASSWORD POLICY
+Strong passwords are essential for system security:
+- Minimum 12 characters with mix of letters, numbers, and symbols
+- No reuse of last 12 passwords
+- Must be changed every 90 days for privileged accounts
+- Multi-factor authentication required for all business systems
+- Password managers recommended for personal password storage
+
+ACCEPTABLE USE POLICY
+Company computing resources must be used responsibly:
+- No unauthorized software installation
+- No access to inappropriate websites during work hours
+- Personal use limited to reasonable, brief periods
+- No sharing of login credentials or system access
+- Report suspicious emails or security incidents immediately
+
+REMOTE WORK SECURITY
+Remote employees must follow additional security measures:
+- Use company-approved VPN for all work connections
+- Ensure home WiFi networks use WPA3 encryption
+- Keep work devices physically secure and locked when unattended
+- Use only approved cloud storage services for company data
+- Install automatic security updates on all devices
+
+INCIDENT RESPONSE
+Security incidents must be reported immediately:
+1. Contact IT Security at security@acme.com or extension 911
+2. Document the incident details and timeline
+3. Do not attempt to investigate or resolve independently
+4. Preserve evidence and affected systems
+5. Follow instructions from the security team
+
+Common security incidents include:
+- Suspected malware or virus infections
+- Unauthorized access attempts
+- Lost or stolen devices containing company data
+- Suspicious emails or phishing attempts
+- Data breaches or unauthorized data disclosure
+
+VENDOR AND THIRD-PARTY SECURITY
+Third-party vendors with access to ACME systems must:
+- Sign security agreements and NDAs
+- Undergo security assessments before system access
+- Provide evidence of their own security controls
+- Report security incidents affecting ACME data
+- Allow security audits of their relevant systems
+
+COMPLIANCE REQUIREMENTS
+ACME maintains compliance with:
+- SOC 2 Type II controls
+- GDPR for European customer data
+- CCPA for California resident data
+- Industry-specific regulations as applicable
+- PCI DSS for payment card data handling
+
+Regular compliance audits are conducted by internal and external auditors.
+
+SECURITY TRAINING
+All employees must complete:
+- Security awareness training within 30 days of hire
+- Annual security refresher training
+- Role-specific security training as required
+- Phishing simulation exercises quarterly
+
+Training completion is tracked and reported to management.
+
+ENFORCEMENT
+Violations of this security policy may result in:
+- Verbal or written warnings
+- Additional security training requirements
+- Temporary or permanent loss of system access
+- Disciplinary action up to and including termination
+- Legal action for willful violations or criminal activity
+
+POLICY UPDATES
+This security policy is reviewed annually and updated as needed to address:
+- New security threats and vulnerabilities
+- Changes in business operations
+- Regulatory requirement updates
+- Technology infrastructure changes
+
+All policy updates are communicated to employees through email and training sessions.
+
+For questions about this policy or security procedures, contact:
+- IT Security Team: security@acme.com
+- Information Security Officer: ciso@acme.com
+- Policy clarification: policy@acme.com
+
+This policy is effective immediately and supersedes all previous versions.

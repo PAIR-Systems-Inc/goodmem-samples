@@ -1,0 +1,90 @@
+ACME API Documentation
+
+INTRODUCTION
+The ACME REST API provides programmatic access to our core services. This documentation covers authentication, endpoints, and integration patterns for developers.
+
+AUTHENTICATION
+All API requests require authentication using API keys. Include your API key in the request header:
+
+Authorization: Bearer YOUR_API_KEY
+
+API keys can be generated from your account dashboard. Keep your API keys secure and do not share them publicly.
+
+BASE URL
+All API endpoints are accessed via:
+https://api.acme.com/v1/
+
+RATE LIMITING
+API requests are limited to:
+- 1000 requests per hour for free accounts
+- 10000 requests per hour for premium accounts
+- Rate limit headers are included in all responses
+
+CORE ENDPOINTS
+
+GET /users
+Retrieve user information
+Parameters:
+- limit: Number of results (default: 20, max: 100)
+- offset: Pagination offset (default: 0)
+
+Response:
+{
+  "users": [...],
+  "total": 150,
+  "limit": 20,
+  "offset": 0
+}
+
+POST /users
+Create a new user account
+Required fields:
+- email: Valid email address
+- password: Minimum 8 characters
+- name: Full name
+
+PUT /users/{id}
+Update existing user information
+Supports partial updates. Only provided fields will be modified.
+
+DELETE /users/{id}
+Remove a user account
+This action is irreversible. All user data will be permanently deleted.
+
+ERROR HANDLING
+The API uses standard HTTP status codes:
+- 200: Success
+- 400: Bad Request - Invalid parameters
+- 401: Unauthorized - Invalid or missing API key
+- 403: Forbidden - Insufficient permissions
+- 404: Not Found - Resource does not exist
+- 429: Too Many Requests - Rate limit exceeded
+- 500: Internal Server Error
+
+Error responses include detailed messages:
+{
+  "error": "Invalid parameter",
+  "message": "The 'email' field is required",
+  "code": 400
+}
+
+SDK SUPPORT
+Official SDKs are available for:
+- Python: pip install acme-api-client
+- JavaScript: npm install acme-api-js
+- Java: Maven coordinates available in documentation
+- Go: go get github.com/acme/api-client-go
+
+WEBHOOKS
+Configure webhooks to receive real-time notifications:
+- User registration events
+- Payment processing updates
+- System maintenance alerts
+
+Webhook URLs must be HTTPS and respond with 200 status within 10 seconds.
+
+SUPPORT
+Technical support is available through:
+- Documentation: docs.acme.com
+- Developer forum: community.acme.com
+- Email support: api-support@acme.com
