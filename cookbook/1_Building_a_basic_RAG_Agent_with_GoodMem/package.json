@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@pairsystems/goodmem-client": "^1.0.0-dev.cb052d6"
+    "@pairsystems/goodmem-client": "^1.0.5"
   }
 }
