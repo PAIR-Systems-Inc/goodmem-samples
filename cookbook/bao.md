@@ -2,29 +2,30 @@
 
 ## Overview
 
-RAG is an effective way to empower LLMs to think or decide based on external knowledge/information you provide even if such knowledge/information has not been "seen" by them before. 
-For example, while it is impossible for a human supper enginer to memorize the manual of every product sold by a company,
-a RAG-based customer service chatbot can answer any question about any product as long as it is provided with documentations of all products sold by the company.
-On top of that, RAG is facinating in that it can always give the most up-to-date answer even if the product manuals are updated frequently.
+RAG is an effective way to steer LLMs to think or act per your expectation by providing them with knowledge/information that has not been "seen" by them before. 
+For example, while it is impossible for a human support engineer to memorize the manual of every product sold by a company,
+a RAG-based customer service chatbot can answer any question about any product as long as the information needed, even if connecting the dots is needed, is documented in the manuals.
+Additionally, the answer can be up-to-date effortlessly even if the product manuals are updated frequently.
 
-Goodmem is framework for you to build, evaluate, and optimize RAG applications. 
-While there are many RAG frameworks out there,
-Goodmem is designed with enterprise-readiness in mind. [TODO: Elaborate why Goodmem is enterprise-ready.]
-In this 5-minute tutorial, we will see why Goodmem is the best way to build enterprise-grade RAG applications.
-
-In Goodmem, building a RAG application is as declaring the RAG components and leave the rest to Goodmem.
-For example, the user does not have to deal with calling the components and passing data between them which they otherwise would have to do in other RAG frameworks.
-
+Goodmem is framework for you to build, evaluate, and optimize RAG agents. 
+In this 5-minute tutorial, we will see how to build a RAG agent in Goodmem and why Goodmem is superior to other RAG frameworks in building scalable and enterprise-grade RAG agents.
 
 ## Before we start
 
-1. Have an OpenAI API key (denoted as `$OPENAI_API_KEY`) ready. Optionally, please have a Voyager API key (denoted as `$VOYAGER_API_KEY`) ready for reranking. 
+1. Obtain an OpenAI API key (denoted as `$OPENAI_API_KEY`). Optionally, obtain a Voyager API key (denoted as `$VOYAGER_API_KEY`). 
 2. Install Goodmem: 
    ```bash
    curl -s "https://get.goodmem.ai" | bash
    ```
    [TODO: add flag for unattended install]
    The installation script will give you the path to Goodmem's REST API endpoint (denoted as `$GOODMEM_API_URL`) and your Goodmem API key (denoted as `$GOODMEM_API_KEY`). Be sure to write them down as we will use them in this tutorial.
+   
+   You may export them to your shell environment for easier use later:
+   ```bash
+   export GOODMEM_BASE_URL="{your_goodmem_base_url}"
+   export GOODMEM_API_KEY="{your_goodmem_api_key}"
+   ```
+
 3. Depending on your choice of interfacing with Goodmem, e.g., via CLI or Python, please install such interface. 
     For Python, please intall the Goodmem Python package:
     ```bash
@@ -32,28 +33,25 @@ For example, the user does not have to deal with calling the components and pass
     ```
    
 
-## Step 1: Register a RAG stack: an embedder and an LLM
+## Step 1: Register a minimal RAG stack: an embedder and an LLM
+
+Building RAG applications in Goodmem is like no other RAG frameworks: 
+* **Fast**: Just two steps: register RAG components (e.g., embedders, LLMs) and compose them into a RAG application. 
+No need for passing data between them manually as they would have to do in other RAG frameworks.
+* **Scalable**: each RAG component is assigned with a unique ID (UUID), allowing easy reuse and management across multiple RAG components and agents. 
+In contrast, many existing RAG frameworks do not support this mechanism and duplicated RAG components cause management overhead and risk.
+* Combining these two designs, Goodmem has a third advantage: One RAG can employ multiple RAG components of the same purpose, e.g., two embedders to balance different aspects of searching.
+In other framework, the developer needs different code for one, two, three, etc. parallel components.  
 
 
-In Goodmem, one RAG component can be used across many RAG knowledge bases or agents, while one RAG knowledge base/agent can employ multiple RAG components of the same type, e.g., two embedders, to balance different aspects of searching.
+A **minimal RAG agent** consists of two components: an embedder and a large language model (LLM).
+At a high level, an embedder's job is to enable effective retrieval of the right knowledge to fulfill a user query, while an LLM's job is to fulfills the user query based on the knowledge retrieved.
 
-To support this design, every RAG component, once registered, is assigned a unique ID, UUID, easing the reference and management of RAG components in an enterprise setting.    
-In contrast, many existing RAG frameworks do not enforce this mechanism and duplicated instances of RAG components of same settings  cause management overhead and confusion.
-
-Also to support this design, each component is a microservice that can be and must be access via gRPC/REST calls. Therefore, your RAG pipeline is not tied to the programming language you use to build it. 
-
-At its bare minimal, a RAG application consists of two components: an embedder and a large language model (LLM).
 In this tutorial, we will use OpenAI's `text-embedding-3-small` embedder and OpenAI's `gpt-5-nano` LLM.
-We will register these two components via Goodmem's REST API. 
 
-First, let's declare two Goodmem-related environment variables (if you have not done so):
+### Register the embedder
 
-```bash
-export GOODMEM_BASE_URL="your_goodmem_api_url"  # e.g., http://localhost:8080/v1. Must end with /v1
-export GOODMEM_API_KEY="your_goodmem_api_key"    # replace with your Goodmem API KEY
-```
-
-Then, let's registered the embedder:
+The command below registers the OpenAI `text-embedding-3-small` embedder in Goodmem:
 
 ```bash
 curl -X POST "${GOODMEM_BASE_URL}/embedders" \
@@ -67,13 +65,17 @@ curl -X POST "${GOODMEM_BASE_URL}/embedders" \
         "dimensionality": 1536,
         "distributionType": "DENSE",
         "credentials": {
-            "kind": "CREDENTIAL_KIND_API_KEY",
+            "kind": "CREDENTIAL_KI
             "apiKey": {
             "inlineSecret": "${OPENAI_API_KEY}"
             }
         }
     }' | jq
 ```
+
+
+<details>
+<summary><strong>Expected response and analysis (click to expand)</strong></summary>
 
 The command above uses three environment variables defined earlier: `$GOODMEM_BASE_URL`, `$GOODMEM_API_KEY`, and `$OPENAI_API_KEY`.
 In this command, the embedder's display name is set as "OpenAI small". Then we tell Goodmem that this embedder's `providerType` is `OPENAI`, the `endpointUrl` is `https://api.openai.com/v1`, and the model name (`modelIdentifier`) is `text-embedding-3-small`. The credential for accessing OpenAI API is also provided in the `credentials` field which specifies the credential type (`kind`) as `CREDENTIAL_KIND_API_KEY` and the API KEY (`inlineSecret`) as `${OPENAI_API_KEY}`. Finally, we tell Goodmem that this embedder produces dense embeddings of 1536 dimensions via the `distributionType` and `dimensionality` fields. Because different embedding models may produce embeddings of different dimensions and distribution types (dense vs. sparse), it is important to specify these two fields for Goodmem to store the embeddings properly.
@@ -108,8 +110,12 @@ The embedder is assigned a unique ID, `embedderId`, which we will use later.
 
 Optional fields that we did not specify in the registration command above include `description`, `labels`, `version`, `monitoringEndpoint`, and `supportedModalities`. They are returned as empty or null in the response. If you want, you can update these fields later. 
 
-As the last task of Step 1, let's register the LLM:   
+</details>
 
+
+## Register the LLM
+
+The command below registers the OpenAI `gpt-5-nano` LLM in Goodmem:
 
 ```bash
 curl -X POST "${GOODMEM_BASE_URL}/llms" \
@@ -128,6 +134,9 @@ curl -X POST "${GOODMEM_BASE_URL}/llms" \
   }
 }' | jq
 ```
+
+<details>
+<summary><strong>Expected response and analysis (click to expand)</strong></summary>
 
 In this command, we set the LLM's display name as "My GPT-5-nano". Similar to the embedder registration command, we specify the `providerType`, `endpointUrl`, `modelIdentifier`, and `credentials` fields. Because LLM's output are always text, there is not other mandatory fields to specify for LLM registration.
 
@@ -198,3 +207,11 @@ If your command above executes successfully, you should see a JSON response that
 Do not let the lengthy response intimidate you. It's long because Goodmem automatically infers many capabilities of the LLM based on its model family. The inference results are listed in the `statuses` field. 
 
 Like the case for embedders, which returns the UUID of an embedder in the field `embedderId`, the LLM registration response returns the UUID of the LLM in the field `llmId`. We will use this ID later.
+
+</details>
+
+## Step 2: Add knowledge to the RAG agent
+
+## Step 3: Spin the RAG agent 
+
+## Step 4 (optional): Add a reranker
