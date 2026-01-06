@@ -34,19 +34,19 @@ In this 15-minute tutorial, we will see how to build a RAG agent in Goodmem and 
    curl -s "https://get.goodmem.ai" | bash
    ```
    [TODO: add flag for unattended install]
-   The installation script will give you the path to Goodmem's REST API endpoint (denoted as `$GOODMEM_API_URL`) and your Goodmem API key (denoted as `$GOODMEM_API_KEY`). Be sure to write them down as we will use them in this tutorial.
-   
-   You may export them to your shell environment for easier use later:
+   The installation script will print out the path to Goodmem's REST API endpoint and an Goodmem API key. Be sure to write them down as we will use them in this tutorial. For convenience, export them to your shell environment for easier use later:
    ```bash
    export GOODMEM_BASE_URL="{your_goodmem_base_url}"
    export GOODMEM_API_KEY="{your_goodmem_api_key}"
    ```
 
-3. Depending on your choice of interfacing with Goodmem, e.g., via CLI or Python, please install such interface. 
-    For Python, please intall the Goodmem Python package:
+3. Install the SDK depending how you'll interface with Goodmem.
+   * For CLI, cURL, or Python in `requests` library, no need to install anything.
+   * For using Goodmem Python SDK:
     ```bash
     pip install goodmem-client
     ```
+    * [TODO] Add installation instructions for other SDKs.
 
 
 
@@ -229,27 +229,22 @@ A common error due to the wrong embedder ID, like this:
 
 Now its time to add memory data into the space.
 Usually there are two kinds of memory data:
-1. Files (e.g., PDFs, text files, etc.)
-2. Text (e.g., a conversation or an email)
+1. Plain text (e.g., a conversation, a message, or a block of code)
+2. Files (e.g., PDFs, text files, etc.)
 
-In this demo, we will ingest both kinds of memory data into the space.
+In this demo, we will ingest both kinds of memory data into the space. In particular, for ingesting files, we will talk about **chunking**. 
 
 #### Step 2.2.1: Ingest a plain text
 
-Let's first ingest a text into the space. Here is a sample text:
+The example below ingests a plain text (in field `originalContent`) into a space (in field `spaceId` which is set to the environment variable `$SPACE_ID` returned from creating a space in Step 2.1). 
 
-```text
-Transformers are a type of neural network architecture that are particularly well-suited for natural language processing tasks. A Transformer model leverages the attention mechanism to capture long-range dependencies in the input sequence.
-```
-
-Assuming the text is stored in the environment variable `$TEXT`, this is the cURL command to ingest the text into the space:
 ```bash
 curl -X POST "$GOODMEM_BASE_URL/memories" \
     -H "x-api-key: $GOODMEM_API_KEY" \
     -H "Content-Type: application/json" \
     -d '{
         "spaceId":"'"$SPACE_ID"'",
-        "originalContent": "'"$TEXT"'",
+        "originalContent": "'"Transformers are a type of neural network architecture that are particularly well-suited for natural language processing tasks. A Transformer model leverages the attention mechanism to capture long-range dependencies in the input sequence."'",
         "contentType": "text/plain"
     }' | tee /tmp/memory_text_response.json | jq
 
@@ -299,7 +294,7 @@ Now `processingStatus` is `COMPLETED` because the ingestion is complete. If the 
 
 </details>
 
-####  Step 2.2.3 Ingest a PDF file
+####  Step 2.2.3 Ingest a PDF file with chunking
 
 A PDF file is usually text-heavy. If we treat it as one memory, such a lengthy memory will be ineffective for retrieval and inefficient or even impossible (out of context window) for the LLM to process.
 
@@ -426,6 +421,7 @@ TODO:
 1. The example here https://docs.goodmem.ai/docs/how-to/optimize-document-ingestion/#comparison-examples misses many mandatory fields.
 2. None is a bad default chunking strategy. 
 3. No default value for optional arguments here https://docs.goodmem.ai/docs/reference/api-reference/rest/memories/retrieveMemory/
+4. The camelCase vs. snake_case issue.
 
 ```bash
 # tmp code
